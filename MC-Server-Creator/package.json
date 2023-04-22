@@ -1,0 +1,24 @@
+{
+  "name": "mc-server-creator",
+  "private": true,
+  "version": "0.0.0",
+  "main": "main.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "electron .",
+    "launch": "vite build && electron ."
+  },
+  "dependencies": {
+    "@heroicons/vue": "^1.0.6",
+    "vue": "^3.2.47",
+    "vue-router": "^4.1.6"
+  },
+  "devDependencies": {
+    "@rollup/plugin-alias": "^5.0.0",
+    "@vitejs/plugin-vue": "^4.1.0",
+    "electron": "^24.1.2",
+    "vite": "^4.3.0"
+  }
+}
