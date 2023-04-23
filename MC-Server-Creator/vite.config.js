@@ -6,7 +6,7 @@ const path = require("path");
 export default defineConfig({
   base: "",
   build: {
-    outDir: "electron"
+    outDir: "electron/build"
   },
   resolve:{
     alias:{
@@ -14,6 +14,7 @@ export default defineConfig({
       "@components" : path.resolve(__dirname, './src/components'),
       "@assets" : path.resolve(__dirname, './src/assets'),
       "@views" : path.resolve(__dirname, './src/views'),
+      "@electronCode": path.resolve(__dirname, './electron')
     },
   },
   plugins: [vue()],

@@ -6,7 +6,7 @@
 <template>
 
         <RouterLink :to="linkPage" class="routerLink">
-            <li class="menu-item">
+            <li class="menu-item" v-bind:class="{'selected': $route.name == linkPage}">
                 <component :is="icon" class="menu-item-icon"/>
                 <p class="menu-item-text">{{ name }}</p>
             </li>
@@ -57,16 +57,21 @@
     .menu-item:hover .menu-item-text {
         color: #F2F4FB;
     }
+
+    .router-link-active {
+        background-color: #272934 !important;
+    }
+
     .menu-item-icon {
         width: 30px;
         height: 30px;
         margin-left: 1rem;
-        transition: stroke 200ms ease-in-out;
+        transition: stroke 100ms ease-in-out;
     }
     .menu-item-text {
         margin-left: 1rem;
         font-weight: 600;
-        transition: color 200ms ease-in-out;
+        transition: color 100ms ease-in-out;
         
     }
     .routerLink {

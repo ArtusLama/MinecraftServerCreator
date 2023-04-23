@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router"
 
-import LandingPage from "../views/LandingPage.vue"
-import ServersPage from "../views/ServersPage.vue"
+import LandingPage from "@views/LandingPage.vue"
+import ServersPage from "@views/ServersPage.vue"
+import SettingsPage from "@views/SettingsPage.vue"
 import PageNotFoundView from "@views/PageNotFoundView.vue"
+
 
 
 
@@ -18,6 +20,11 @@ const router = createRouter({
         path: '/servers',
         name: 'Servers',
         component: ServersPage
+      },
+      {
+        path: '/settings',
+        name: 'Settings',
+        component: SettingsPage
       },
       {
         path: "/:catchAll(.*)",

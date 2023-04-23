@@ -1,4 +1,10 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow } = require('electron');
+
+const SettingsManager = require("./utils/SettingsManager.js")
+
+
+
+
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -6,10 +12,16 @@ const createWindow = () => {
     height: 800,
 
     minWidth: 900,
-    minHeight: 650
+    minHeight: 650,
+
+    autoHideMenuBar: true
   })
+
+
+  SettingsManager.setupConfig(app.getAppPath())
   
-  win.loadFile("electron/index.html")
+
+  win.loadFile("electron/build/index.html")
 }
 
 app.whenReady().then(() => {

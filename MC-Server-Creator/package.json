@@ -2,7 +2,7 @@
   "name": "mc-server-creator",
   "private": true,
   "version": "0.0.0",
-  "main": "main.js",
+  "main": "electron/main.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
