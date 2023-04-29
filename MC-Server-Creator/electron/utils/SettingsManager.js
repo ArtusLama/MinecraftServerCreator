@@ -1,33 +1,35 @@
-
-const configFilePath = "../resources/config.json";
-const config = require(configFilePath);
+const config = require('electron-json-config').factory();
 const fs = require("fs");
+const path = require("path")
 
 
-const deep_value = (obj, path) => path
-    .replace(/\[|\]\.?/g, '.')
-    .split('.')
-    .filter(s => s)
-    .reduce((acc, val) => acc && acc[val], obj);
+
 
 
 function setValueInConfig(path, value) {
-    console.log(config)
-    deep_value(config, path) = value
-
-    config = fs.readFileSync(configFilePath, "utf8");
-
-    fs.writeFile(configFilePath, JSON.stringify(config, null, 4), function writeJSON(err) {
-        if (err) return console.log(err);
-    });
+    config.set(path, value);
 }
 
 
 module.exports.setupConfig = 
-function setupConfig(path) {
-    setValueInConfig()
-}
+function setupConfig(app) {
+    if (config.get("setDefaultConfig") || config.get("setDefaultConfig") == null) {
+        setValueInConfig("setDefaultConfig", true)
+        setValueInConfig("java.jarPath", path.resolve(__dirname, "..\\..\\java\\McServerCreatorJava.jar"));
 
+        const serversForlderPath = app.getPath("home") + "\\mc-server-creator\\servers\\";
+        setValueInConfig("settings.serversFolderPath", serversForlderPath)
+        if (!fs.existsSync(serversForlderPath)){
+            fs.mkdirSync(serversForlderPath, { recursive: true });
+        }
+
+
+    }
+}
+module.exports.getValueFromConfig = 
+function getValueFromConfig(path) {
+    return config.get(path)
+}
 
 
 

@@ -1,10 +1,9 @@
 <script setup>
-    import { getSetting } from "@electronCode/utils/VueSettingsManager.js"
 </script>
 
 <template>
 
-    <input class="inputField" v-model="currentText">
+    <input class="inputField" v-model="currentText" spellcheck="false">
     
 
 </template>
@@ -15,13 +14,13 @@
 
         data() {
             return {
-                currentText: "loading...",
+                currentText: "",
                 reactiveWidth: 10 * 1.05 + "ch"
             }
         },
 
-        mounted() {
-            this.currentText = getSetting(this.configPath);
+        async mounted() {
+            this.currentText = await window.ipc.getValueFromConfig(this.configPath)    
         },
 
         
