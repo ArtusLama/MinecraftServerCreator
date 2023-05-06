@@ -40,7 +40,6 @@
 </template>
 
 <script>
-    //this.$forceUpdate();
     export default {
 
         data() {

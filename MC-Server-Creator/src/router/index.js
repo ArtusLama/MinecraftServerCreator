@@ -4,6 +4,8 @@ import LandingPage from "@views/LandingPage.vue"
 import ServersPage from "@views/ServersPage.vue"
 import SettingsPage from "@views/SettingsPage.vue"
 import PageNotFoundView from "@views/PageNotFoundView.vue"
+import OverviewPage from "@views/serverPages/OverviewPage.vue"
+import CreateNewServer from "@views/serverPages/CreateNewServer.vue"
 
 
 
@@ -22,9 +24,19 @@ const router = createRouter({
         component: ServersPage
       },
       {
+        path: '/createserver',
+        name: 'Create new Server',
+        component: CreateNewServer
+      },
+      {
         path: '/settings',
         name: 'Settings',
         component: SettingsPage
+      },
+      {
+        path: '/overview',
+        name: 'Server Overview',
+        component: OverviewPage
       },
       {
         path: "/:catchAll(.*)",

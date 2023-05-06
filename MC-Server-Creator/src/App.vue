@@ -17,11 +17,12 @@
     .content {
         text-align: left;
         max-width: 1280px;
-        margin: 0 auto;
-        padding: 0;
+        
+        padding-right: 2rem;
 
-        margin-top: 2rem;
-        margin-bottom: 2rem;
+        height: 100vh;
+        overflow: hidden;
+        overflow-y: auto;
     }
 
 </style>

@@ -14,7 +14,7 @@ function setValueInConfig(path, value) {
 module.exports.setupConfig = 
 function setupConfig(app) {
     if (config.get("setDefaultConfig") || config.get("setDefaultConfig") == null) {
-        setValueInConfig("setDefaultConfig", true)
+        setValueInConfig("setDefaultConfig", false)
         setValueInConfig("java.jarPath", path.resolve(__dirname, "..\\..\\java\\McServerCreatorJava.jar"));
 
         const serversForlderPath = app.getPath("home") + "\\mc-server-creator\\servers\\";
@@ -22,8 +22,6 @@ function setupConfig(app) {
         if (!fs.existsSync(serversForlderPath)){
             fs.mkdirSync(serversForlderPath, { recursive: true });
         }
-
-
     }
 }
 module.exports.getValueFromConfig = 
