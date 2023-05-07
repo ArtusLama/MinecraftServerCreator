@@ -11,6 +11,7 @@
 <template>
     <div>
 
+        <h1>Currently read only</h1>
         <ul class="settings">
 
             <SettingsElement name="Servers Path">

@@ -1,6 +1,7 @@
 <script setup>
 
     import { CheckIcon, PencilIcon, ArrowNarrowRightIcon } from "@heroicons/vue/outline";
+    import SelectMenu from "@components/useful/SelectMenu.vue"
 
 </script>
 
@@ -20,17 +21,24 @@
         </div>
 
         <div class="formContent">
-            <h1>{{ steps[current] }}</h1>
-            <div :class="{ formSectionVisible: current == 0 }" style="position: relative;">
-                <input class="formInputField" name="serverName" type="text" required>
+            <div :class="{ formSectionVisible: current == 0 }">
+                <div style="position: relative;">
+                    <input class="formInputField" name="serverName" type="text" required v-model="serverName">
                 <label class="formInputLabel" for="serverName"><span class="inputLabelText">ServerName:</span></label>
+                </div>
+                
+                <span class="serverTypeText">ServerType:</span>
+                <SelectMenu class="selectServerType" :options="['paper', 'spigot', 'bukkit']" default="paper" @input="console.log($event)"/>
+                
 
             </div>
             <div :class="{ formSectionVisible: current == 1 }">
-                <h1>Second One</h1>
+                
+
             </div>
             <div :class="{ formSectionVisible: current == 2 }">
-                <h1>Third One</h1>
+                
+
             </div>
 
 
@@ -45,6 +53,33 @@
 
     </div>
 </template>
+
+<script>
+
+    export default {
+        data() {
+            return {
+                steps: ["Set Name", "Select Version", "Server Settings"],
+                current: 0,
+
+                serverName: null,
+                serverType: "paper",
+            }
+        },
+        watch: {
+            serverName(val) {
+                this.serverName = val.replace(/[^a-zA-Z0-9-_]/g, "")
+            }
+        },
+        methods: {
+            createServer: function () {
+                alert("NAME: " + this.serverName + " serverType: " + this.serverType)
+            }
+        }
+    }
+
+</script>
+
 
 <style scoped>
     .progressWrapper {
@@ -112,11 +147,12 @@
         align-items: center;
         padding: 4rem 0;
     }
-    .formContent div {
+    .formContent > div {
         display: none;
     }
     .formSectionVisible {
-        display: block !important;
+        display: flex !important;
+        flex-direction: column;
     }
 
     .buttonWrapper {
@@ -149,9 +185,6 @@
     }
     .nextButton:hover {
         background-color: #55bc8a;
-    }
-    .nextButton:hover p {
-
     }
     .nextButton:hover .nextButtonIcon {
         width: 1.5rem;
@@ -260,26 +293,22 @@
     }
 
 
+    .serverTypeText {
+        margin-top: 4rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 12px;
+        color: #5DD299;
+    }
+    
+
+
+
+
 
 
 </style>
 
 
-<script>
 
-    export default {
-        data() {
-            return {
-                steps: ["Set Name", "Select Version", "Server Settings"],
-                current: 0
-            }
-        },
-        methods: {
-            createServer: function () {
-                alert("creating server... !NOT IMPLEMENTED YET")
-            }
-        }
-    }
-
-</script>
 
