@@ -1,17 +1,16 @@
 <script setup>
 
-    import { CheckIcon, PencilIcon } from "@heroicons/vue/outline";
+    import { CheckIcon, PencilIcon, ArrowNarrowRightIcon } from "@heroicons/vue/outline";
 
 </script>
 
 <template>
     <div>
         
-        <h1>{{ steps[current] }}</h1>
         <div class="progressWrapper">
             <ul class="progress">
                 <li v-for="(step, index) in steps" class="progressElement">
-                    <span class="progressCircle" :style="index == current ? {'background-color': '#5DD299'} : {}">
+                    <span class="progressCircle" :style="index == current ? {'background-color': '#5DD299'} : index < current ? {'border': '2px solid #5DD299'} : {}">
                         <CheckIcon v-if="current > index" class="progressCircleCompleatedIcon"/>
                         <PencilIcon v-if="current == index" class="progressCircleEditing"/>
                     </span>
@@ -21,13 +20,28 @@
         </div>
 
         <div class="formContent">
+            <h1>{{ steps[current] }}</h1>
+            <div :class="{ formSectionVisible: current == 0 }" style="position: relative;">
+                <input class="formInputField" name="serverName" type="text" required>
+                <label class="formInputLabel" for="serverName"><span class="inputLabelText">ServerName:</span></label>
+
+            </div>
+            <div :class="{ formSectionVisible: current == 1 }">
+                <h1>Second One</h1>
+            </div>
+            <div :class="{ formSectionVisible: current == 2 }">
+                <h1>Third One</h1>
+            </div>
+
 
         </div>
         
-        <button v-if="current != 0" @click="current--">back</button>
-        <button v-if="current != steps.length - 1" @click="current++">next</button>
-        <button v-if="current == steps.length - 1" @click="createServer()">create server</button>
-
+        <div class="buttonWrapper" :style="current == 0 ? {'justify-content': 'flex-end'} : {}">
+            <button class="backButton" v-if="current != 0" @click="current--">BACK</button>
+            <button class="nextButton" v-if="current != steps.length - 1" @click="current++"><p>NEXT</p><ArrowNarrowRightIcon class="nextButtonIcon"/></button>
+            <button class="submitButton" v-if="current == steps.length - 1" @click="createServer()">Create Server <CheckIcon class="submitButtonIcon"/></button>
+        </div>
+        
 
     </div>
 </template>
@@ -51,6 +65,9 @@
         display: flex;
         align-items: center;
         justify-content: space-around;
+    }
+    .progressElement * {
+        transition: all 400ms ease-in-out;
     }
     .progressCircle {
         display: flex;
@@ -90,7 +107,158 @@
         height: 10rem;
         background-color: #20232A;
         border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 4rem 0;
     }
+    .formContent div {
+        display: none;
+    }
+    .formSectionVisible {
+        display: block !important;
+    }
+
+    .buttonWrapper {
+        margin-top: 1rem;
+        max-width: 50rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 15px;
+    }
+    .nextButton {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #5DD299;
+        color: #20222D;
+        border: none;
+        border-radius: 6px;
+        font-weight: 700;
+        font-size: 14px;
+        cursor: pointer;
+        height: 2rem;
+        width: 5rem;
+        transition: all 200ms ease-in-out;
+    }
+    .nextButton p {
+        margin: 0;
+        margin-top: 2px;
+        margin-right: 4px;
+    }
+    .nextButton:hover {
+        background-color: #55bc8a;
+    }
+    .nextButton:hover p {
+
+    }
+    .nextButton:hover .nextButtonIcon {
+        width: 1.5rem;
+        opacity: 1;
+    }
+    .nextButtonIcon {
+        opacity: 0;
+        width: 0;
+        transition: all 200ms ease-in-out;
+    }
+    .backButton {
+        background-color: #333644;
+        color: #20222D;
+        border: none;
+        text-align: center;
+        border-radius: 6px;
+        font-weight: 700;
+        font-size: 14px;
+        padding: 0 5px;
+        cursor: pointer;
+        width: 4rem;
+        height: 2rem;
+    }
+    
+    .backButton:hover {
+        background-color: #40434f;
+    }
+    
+    .submitButton {
+        background-color: #5DD299;
+        color: #20222D;
+        border: none;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        font-weight: 700;
+        font-size: 14px;
+        padding: 0 10px;
+        cursor: pointer;
+        height: 2rem;
+
+        box-shadow: 0 0 0 0 transparent;
+        transition: all 200ms ease-in-out;
+    }
+    .submitButton:hover {
+        color: white;
+        background-color: #5edda0;
+        box-shadow: 0 0 0 8px #66daa243;
+        
+    }
+    .submitButtonIcon {
+        width: 1.5rem;
+        stroke-width: 3px;
+        margin-left: 6px;
+    }
+
+
+    .formInputField {
+        font-weight: 600;
+        background-color: transparent;
+        border: none;
+        height: 2rem;
+    }
+    .formInputField:focus {
+        outline: none;
+    }
+    .formInputLabel {
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        border-bottom: 2px solid #8c91a6;
+    }
+    .formInputLabel::after {
+        content: "";
+        position: absolute;
+        left: 0px;
+        width: 100%;
+        transform: scaleX(0);
+        transform-origin: left;
+        height: 100%;
+        border-bottom: 3px solid #5DD299;
+        transition: all 0.3s ease;
+    }
+    .inputLabelText {
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        padding-bottom: 5px;
+        font-weight: 700;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+    }
+    .formInputField:focus + .formInputLabel .inputLabelText,
+    .formInputField:valid + .formInputLabel .inputLabelText {
+        transform: translateY(-100%);
+        font-size: 12px;
+        left: 0px;
+        color: #5DD299;
+    }
+    .formInputField:focus + .formInputLabel::after,
+    .formInputField:valid + .formInputLabel::after {
+        transform: scaleX(1);
+    }
+
 
 
 
